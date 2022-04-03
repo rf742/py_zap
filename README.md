@@ -7,7 +7,7 @@ Python implementation of zap program
 ### Immediate Goals
 
 - [x] Implement logic for 1D problems
-- [ ] Fix logic for 2D problems
+- [x] Fix logic for 2D problems
 - [ ] Add logic for 3D problems
 
 ### Next Steps
