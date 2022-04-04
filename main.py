@@ -30,7 +30,11 @@ def main():
                 fx = totalforce*math.cos(angle)
                 fy = totalforce*math.sin(angle)
                 p1.fx += fx
-                p2.fy += fy
+                p1.fy += fy
+                if p1 == 2:
+                    print(f'---')
+                    print(f'debugging: force of particle {j}')
+                    print(f'')
 
     for p in charges:
         p.magf = math.sqrt(p.fx**2 + p.fy**2)
