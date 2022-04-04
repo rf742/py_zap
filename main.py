@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 
 import math
+import argparse
 
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose', action='store_true')
+    return parser.parse_args()
 
 class pointCharge():
     def __init__(self, x, y, q):
@@ -16,6 +22,8 @@ class pointCharge():
         self.netangle = 0
 
 def main():
+    args = get_args()
+    verbose = args.verbose
 #    charges = [pointCharge(0,-1,1),pointCharge(0,0,2), pointCharge(math.sqrt(3),0,-3)]
 #    charges = [pointCharge(0,0,4E-9),pointCharge(5E-2,0,6E-9),pointCharge(0,3E-2,-3E-9)]
     charges = [pointCharge(0,2E-7,2*e), pointCharge(0,0,-3*e), pointCharge(4E-7,0,-5*e)]
@@ -42,15 +50,16 @@ def main():
                     fy=-fy
                 p1.fx += fx
                 p1.fy += fy
-                print(f'---')
-                print(f'debugging: force of particle {j+1} on particle {i+1}')
-                print(f'debugging: fx = {fx:.2E} = cos of atan[{y_dist}, {x_dist}]')
-                print(f'debugging: fy = {fy:.2E}')
-                print(f'debugging: y: {p2.y}-{p1.y} = {p2.y-p1.y}')
-                print(f'debugging: x: {p2.x}-{p1.x} = {p2.x-p1.x}')
-                print(f'debugging: Fnet = {math.hypot(fx,fy):.2E}')
-                print(f'debugging: angle = {angle*180/math.pi:.2F}')
-                print(f'---')
+                if verbose:
+                    print(f'---')
+                    print(f'debugging: force of particle {j+1} on particle {i+1}')
+                    print(f'debugging: fx = {fx:.2E} = cos of atan[{y_dist}, {x_dist}]')
+                    print(f'debugging: fy = {fy:.2E}')
+                    print(f'debugging: y: {p2.y}-{p1.y} = {p2.y-p1.y}')
+                    print(f'debugging: x: {p2.x}-{p1.x} = {p2.x-p1.x}')
+                    print(f'debugging: Fnet = {math.hypot(fx,fy):.2E}')
+                    print(f'debugging: angle = {angle*180/math.pi:.2F}')
+                    print(f'---')
 
     for p in charges:
         p.magf = math.sqrt(p.fx**2 + p.fy**2)
