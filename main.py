@@ -16,14 +16,19 @@ class pointCharge():
         self.netangle = 0
 
 def main():
-    charges = [pointCharge(0,4,-6E-6), pointCharge(0,0,4E-6), pointCharge(3,0,2E-6)]
+    charges = [pointCharge(0,2E-7,2*e), pointCharge(0,0,-3*e), pointCharge(4E-7,0,-5*e)]
+#    charges = [pointCharge(0,4,-6E-6), pointCharge(0,0,4E-6), pointCharge(3,0,2E-6)]
 #   see https://farside.ph.utexas.edu/teaching/316/lectures/node20.html
 
     for i, p1 in enumerate(charges):
         for j, p2 in enumerate(charges):
             if i != j:
-                x_dist = (p2.x - p1.x)
-                y_dist = (p2.y - p1.y)
+                if p1.q*p2.q > 0:
+                    x_dist = (p1.x - p2.x)
+                    y_dist = (p2.y - p1.y)
+                else:
+                    x_dist = -(p2.x - p1.x)
+                    y_dist = (p1.y - p2.y)
                 dist = math.sqrt((x_dist**2)+(y_dist**2))
                 totalforce = (K*p1.q * p2.q)/(dist**2)
                 angle = math.atan2(y_dist,x_dist)
@@ -31,10 +36,15 @@ def main():
                 fy = totalforce*math.sin(angle)
                 p1.fx += fx
                 p1.fy += fy
-                if p1 == 2:
-                    print(f'---')
-                    print(f'debugging: force of particle {j}')
-                    print(f'')
+                print(f'---')
+                print(f'debugging: force of particle {j+1} on particle {i+1}')
+                print(f'debugging: fx = {fx:.2E} = cos of atan[{y_dist}, {x_dist}]')
+                print(f'debugging: fy = {fy:.2E}')
+                print(f'debugging: y: {p2.y}-{p1.y} = {p2.y-p1.y}')
+                print(f'debugging: x: {p2.x}-{p1.x} = {p2.x-p1.x}')
+                print(f'debugging: Fnet = {math.hypot(fx,fy):.2E}')
+                print(f'debugging: angle = {angle*180/math.pi:.2F}')
+                print(f'---')
 
     for p in charges:
         p.magf = math.sqrt(p.fx**2 + p.fy**2)
