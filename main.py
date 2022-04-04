@@ -16,6 +16,8 @@ class pointCharge():
         self.netangle = 0
 
 def main():
+#    charges = [pointCharge(0,-1,1),pointCharge(0,0,2), pointCharge(math.sqrt(3),0,-3)]
+#    charges = [pointCharge(0,0,4E-9),pointCharge(5E-2,0,6E-9),pointCharge(0,3E-2,-3E-9)]
     charges = [pointCharge(0,2E-7,2*e), pointCharge(0,0,-3*e), pointCharge(4E-7,0,-5*e)]
 #    charges = [pointCharge(0,4,-6E-6), pointCharge(0,0,4E-6), pointCharge(3,0,2E-6)]
 #   see https://farside.ph.utexas.edu/teaching/316/lectures/node20.html
@@ -23,17 +25,21 @@ def main():
     for i, p1 in enumerate(charges):
         for j, p2 in enumerate(charges):
             if i != j:
-                if p1.q*p2.q > 0:
-                    x_dist = (p1.x - p2.x)
-                    y_dist = (p2.y - p1.y)
-                else:
-                    x_dist = -(p2.x - p1.x)
-                    y_dist = (p1.y - p2.y)
+                x_dist = abs(p2.x - p1.x)
+                y_dist = abs(p2.y - p1.y)
                 dist = math.sqrt((x_dist**2)+(y_dist**2))
                 totalforce = (K*p1.q * p2.q)/(dist**2)
                 angle = math.atan2(y_dist,x_dist)
-                fx = totalforce*math.cos(angle)
-                fy = totalforce*math.sin(angle)
+                fx = abs(totalforce*math.cos(angle))
+                fy = abs(totalforce*math.sin(angle))
+                if p2.x < p1.x and (p1.q * p2.q < 0):
+                    fx=-fx
+                elif p2.x > p1.x and (p1.q * p2.q > 0):
+                    fx=-fx
+                if p2.y < p1.y and (p1.q * p2.q < 0):
+                    fy=-fy
+                elif p2.y > p1.y and (p1.q * p2.q > 0):
+                    fy=-fy
                 p1.fx += fx
                 p1.fy += fy
                 print(f'---')
