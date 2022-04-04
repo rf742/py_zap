@@ -18,7 +18,6 @@ Python implementation of zap program
   - [x] -v flag
   - [ ] -i flag {name of file to get input data from}
   - [ ] -o flag {name of file to output data to}
-  - [ ]  
 
 ### Long term
 
