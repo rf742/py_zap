@@ -1,6 +1,6 @@
 # py_zap
 
-Python implementation of zap program.
+Python implementation of zap program. (See other repositories of mine for different implementations.)
 
 **zap** is a program to calculate the electrostatic force exerted on each particle within
 a system of point charges, in accordance with Coulomb's Law.
