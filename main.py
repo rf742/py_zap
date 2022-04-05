@@ -61,15 +61,15 @@ def main():
                 p1.fx += fx
                 p1.fy += fy
                 if verbose:
-                    print(f'---')
-                    print(f'debugging: force of particle {j+1} on particle {i+1}')
-                    print(f'debugging: fx = {fx:.2E} = cos of atan[{y_dist}, {x_dist}]')
-                    print(f'debugging: fy = {fy:.2E}')
-                    print(f'debugging: y: {p2.y}-{p1.y} = {p2.y-p1.y}')
-                    print(f'debugging: x: {p2.x}-{p1.x} = {p2.x-p1.x}')
-                    print(f'debugging: Fnet = {math.hypot(fx,fy):.2E}')
-                    print(f'debugging: angle = {angle*180/math.pi:.2F}')
-                    print(f'---')
+                    print(f'--- Verbose Output ---')
+                    print(f'force of particle {j} on particle {i}')
+                    print(f'fx = {fx:.2E}')
+                    print(f'fy = {fy:.2E}')
+                    print(f'y: {p2.y}-{p1.y} = {p2.y-p1.y}')
+                    print(f'x: {p2.x}-{p1.x} = {p2.x-p1.x}')
+                    print(f'Fnet = {math.hypot(fx,fy):.2E}')
+                    print(f'angle = {angle*180/math.pi:.2F}')
+                    print(f'----------------------\n')
 
     for p in charges:
         p.magf = math.sqrt(p.fx**2 + p.fy**2)
