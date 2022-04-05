@@ -9,6 +9,7 @@ e = -1.602217662E-19 # charge on electron
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true')
     return parser.parse_args()
 
 class pointCharge():
@@ -21,13 +22,22 @@ class pointCharge():
         self.magf = 0
         self.netangle = 0
 
+def getCharges(filename):
+    temp = []
+    with open(filename, 'r') as fobj:
+        for line in fobj:
+            if line[0] != "#":
+                temp.append(line.strip().split(','))
+    points = []
+    for element in temp:
+            points.append(pointCharge(float(element[0]),float(element[1]),float(element[2])))
+    return points
+
 def main():
     args = get_args()
     verbose = args.verbose
-#    charges = [pointCharge(0,-1,1),pointCharge(0,0,2), pointCharge(math.sqrt(3),0,-3)]
-#    charges = [pointCharge(0,0,4E-9),pointCharge(5E-2,0,6E-9),pointCharge(0,3E-2,-3E-9)]
-    charges = [pointCharge(0,2E-7,2*e), pointCharge(0,0,-3*e), pointCharge(4E-7,0,-5*e)]
-#    charges = [pointCharge(0,4,-6E-6), pointCharge(0,0,4E-6), pointCharge(3,0,2E-6)]
+    print(args.infile)
+    charges = getCharges(args.infile)
 #   see https://farside.ph.utexas.edu/teaching/316/lectures/node20.html
 
     for i, p1 in enumerate(charges):
