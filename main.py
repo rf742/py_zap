@@ -5,7 +5,7 @@ import argparse
 
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
-G = 6.674E11 # Gravitational constant
+G = 6.674E-11 # Gravitational constant
 
 
 def get_args():
@@ -71,9 +71,9 @@ def main():
                     elif p2.y > p1.y and (p1.q * p2.q > 0):
                         fy=-fy
                 elif args.gravity:
-                    if p2.x > p1.x:
+                    if p2.x < p1.x:
                         fx=-fx
-                    if p2.y > p1.y:
+                    if p2.y < p1.y:
                         fy=-fy
                 else:
                     print("Error, exiting")

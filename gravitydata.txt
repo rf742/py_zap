@@ -1,0 +1,3 @@
+# The force of gravity between earth and moon
+0,0,5.97E24
+3.84E8,0,7.3E22
