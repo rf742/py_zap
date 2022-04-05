@@ -33,6 +33,21 @@ Where the input file contains the data for the system of charges
 * The 1st is located at (0m,2m) and has a charge of 5C
 * The 2nd is located at (0m,0m) and has a charge of 2 x 10^-6 C (2 micro Coulombs) 
 
+### Gravity Mode
+
+Due to the similarity in the equations for gravitational and electrostatic attraction
+this program has the ability to do gravitational force calculations.
+
+Activate this via commandline switch '-g' like this:
+
+```
+./main.py -i datafile -g
+```
+
+The input file takes the same format, however the third argument in each line
+is now treated as the mass rather than the charge. Note that in gravity mode
+the program will verify that the masses are positive and refuse to run if
+there are any negative masses.
 
 ## Todo
 
@@ -54,9 +69,9 @@ Where the input file contains the data for the system of charges
 
 ### Long term
 
-- [ ] gravity mode
-  - [ ] Allow command line flag -g to switch to gravity problems
-  - [ ] Program in graviational constant
-  - [ ] Check inputs for negative "charges"
+- [x] gravity mode
+  - [x] Allow command line flag -g to switch to gravity problems
+  - [x] Program in graviational constant
+  - [x] Check inputs for negative "charges"
 - [ ] Use plotting software to allow generation of diagram of
       system.
