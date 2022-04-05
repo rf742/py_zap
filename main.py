@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-
+import sys
 import math
 import argparse
 
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
+G = 6.674E11 # Gravitational constant
+
 
 def get_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-g', '--gravity', action='store_true')
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true')
     return parser.parse_args()
@@ -33,31 +36,48 @@ def getCharges(filename):
             points.append(pointCharge(float(element[0]),float(element[1]),float(element[2])))
     return points
 
+def validate_masses(points):
+    for p in points:
+        if p.q < 0:
+            print("In gravity mode the masses must always be positive")
+            print("Exiting")
+            sys.exit(1)
+
 def main():
     args = get_args()
     verbose = args.verbose
+    FORMULACONSTANT = K if not args.gravity else G
     print(args.infile)
     charges = getCharges(args.infile)
-#   see https://farside.ph.utexas.edu/teaching/316/lectures/node20.html
-
+    if args.gravity:
+        validate_masses(charges)
     for i, p1 in enumerate(charges):
         for j, p2 in enumerate(charges):
             if i != j:
                 x_dist = abs(p2.x - p1.x)
                 y_dist = abs(p2.y - p1.y)
                 dist = math.sqrt((x_dist**2)+(y_dist**2))
-                totalforce = (K*p1.q * p2.q)/(dist**2)
+                totalforce = (FORMULACONSTANT*p1.q * p2.q)/(dist**2)
                 angle = math.atan2(y_dist,x_dist)
                 fx = abs(totalforce*math.cos(angle))
                 fy = abs(totalforce*math.sin(angle))
-                if p2.x < p1.x and (p1.q * p2.q < 0):
-                    fx=-fx
-                elif p2.x > p1.x and (p1.q * p2.q > 0):
-                    fx=-fx
-                if p2.y < p1.y and (p1.q * p2.q < 0):
-                    fy=-fy
-                elif p2.y > p1.y and (p1.q * p2.q > 0):
-                    fy=-fy
+                if not args.gravity:
+                    if p2.x < p1.x and (p1.q * p2.q < 0):
+                        fx=-fx
+                    elif p2.x > p1.x and (p1.q * p2.q > 0):
+                        fx=-fx
+                    if p2.y < p1.y and (p1.q * p2.q < 0):
+                        fy=-fy
+                    elif p2.y > p1.y and (p1.q * p2.q > 0):
+                        fy=-fy
+                elif args.gravity:
+                    if p2.x > p1.x:
+                        fx=-fx
+                    if p2.y > p1.y:
+                        fy=-fy
+                else:
+                    print("Error, exiting")
+                    sys.exit(1)
                 p1.fx += fx
                 p1.fy += fy
                 if verbose:
