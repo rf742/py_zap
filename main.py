@@ -4,7 +4,7 @@ import math
 import argparse
 import csv
 import time
-
+import tables
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
 G = 6.674E-11 # Gravitational constant
@@ -57,7 +57,6 @@ def main():
     verbose = args.verbose
     csvoutput=args.csv
     FORMULACONSTANT = K if not args.gravity else G
-    print(args.infile)
     charges = getCharges(args.infile)
     if args.gravity:
         validate_masses(charges)
@@ -100,17 +99,19 @@ def main():
                     print(f'Fnet = {math.hypot(fx,fy):.2E}')
                     print(f'angle = {angle*180/math.pi:.2F}')
                     print(f'----------------------\n')
-
     for p in charges:
         p.magf = math.sqrt(p.fx**2 + p.fy**2)
         p.netangle = math.atan2(p.fy,p.fx)
-        print(f'For the: {p.q:.2E} C charge @ {p.x},{p.y}:')
-        print(f' |Fnet| = {(p.magf):.2E} N')
-        print(f'  Fnet  = {p.fx:.2E}i + {p.fy:.2E}j')
-        print(f'  Angle = {p.netangle:.2F} rads ({p.netangle*180/math.pi:.2F} deg)\n')
-
     if csvoutput:
-        csvout('zap_data_' + time.strftime('%Y%m%d%H%M%S')+'.csv', charges)
-
+        csvfilename = 'zap_data_' + time.strftime('%Y%m%d%H%M%S') + '.csv'
+        csvout(csvfilename, charges)
+        if verbose:
+            print("writing csv data to: " + csvfilename)
+    try:
+        tables.printTable(charges)
+    except:
+        if verbose:
+            print("Tables not working, defaulting to ugly printing")
+        tables.uglyprint(charges)
 if __name__ == "__main__":
     main()
