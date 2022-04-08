@@ -2,12 +2,20 @@
 import sys
 import math
 import argparse
+import csv
+import time
 
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
 G = 6.674E-11 # Gravitational constant
 
-
+def csvout(filename, points):
+    with open(filename,'w') as fobj:
+        cw = csv.writer(fobj, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        cw.writerow(['x','y','q','F_net','F_x','F_y','Angle'])
+        for p in points:
+            cw.writerow([p.x,p.y,p.q,p.magf,p.fx,p.y,p.netangle])
+        
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--gravity', action='store_true')
@@ -98,5 +106,6 @@ def main():
         print(f' |Fnet| = {(p.magf):.2E} N')
         print(f'  Fnet  = {p.fx:.2E}i + {p.fy:.2E}j')
         print(f'  Angle = {p.netangle:.2F} rads ({p.netangle*180/math.pi:.2F} deg)\n')
+    csvout('zap_data_' + time.strftime('%Y%m%d%H%M%S')+'.csv', charges)
 if __name__ == "__main__":
     main()
