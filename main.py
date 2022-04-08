@@ -4,17 +4,15 @@ import math
 import argparse
 import csv
 import time
+
 import tables
+import point
+import filetools
+
 K = 8.988E9 # Coulomb constant
 e = -1.602217662E-19 # charge on electron
 G = 6.674E-11 # Gravitational constant
 
-def csvout(filename, points):
-    with open(filename,'w') as fobj:
-        cw = csv.writer(fobj, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        cw.writerow(['x','y','q','F_net','F_x','F_y','Angle'])
-        for p in points:
-            cw.writerow([p.x,p.y,p.q,p.magf,p.fx,p.y,p.netangle])
         
 def get_args():
     parser = argparse.ArgumentParser()
@@ -24,26 +22,7 @@ def get_args():
     parser.add_argument('-c', '--csv', action='store_true', help='output data to csv')
     return parser.parse_args()
 
-class pointCharge():
-    def __init__(self, x, y, q):
-        self.x = x
-        self.y = y
-        self.q = q
-        self.fx = 0
-        self.fy = 0
-        self.magf = 0
-        self.netangle = 0
 
-def getCharges(filename):
-    temp = []
-    with open(filename, 'r') as fobj:
-        for line in fobj:
-            if line[0] != "#":
-                temp.append(line.strip().split(','))
-    points = []
-    for element in temp:
-            points.append(pointCharge(float(element[0]),float(element[1]),float(element[2])))
-    return points
 
 def validate_masses(points):
     for p in points:
@@ -57,7 +36,7 @@ def main():
     verbose = args.verbose
     csvoutput=args.csv
     FORMULACONSTANT = K if not args.gravity else G
-    charges = getCharges(args.infile)
+    charges = filetools.getCharges(args.infile)
     if args.gravity:
         validate_masses(charges)
     for i, p1 in enumerate(charges):
@@ -104,7 +83,7 @@ def main():
         p.netangle = math.atan2(p.fy,p.fx)
     if csvoutput:
         csvfilename = 'zap_data_' + time.strftime('%Y%m%d%H%M%S') + '.csv'
-        csvout(csvfilename, charges)
+        filetools.csvout(csvfilename, charges)
         if verbose:
             print("writing csv data to: " + csvfilename)
     try:
