@@ -20,7 +20,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', '--gravity', action='store_true', help='The program will compute gravitational force instead of electrical force. [Put mass where charge normally goes in input file]')
     parser.add_argument('-v', '--verbose', action='store_true')
-    parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true', help='File where data on point charges go. ')
+    parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true', help='File containingdata on your point charges [x,y,q] ')
     parser.add_argument('-c', '--csv', action='store_true', help='output data to csv')
     return parser.parse_args()
 
