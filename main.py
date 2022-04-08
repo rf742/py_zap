@@ -21,6 +21,7 @@ def get_args():
     parser.add_argument('-g', '--gravity', action='store_true')
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true')
+    parser.add_argument('-c', '--csv', action='store_true')
     return parser.parse_args()
 
 class pointCharge():
@@ -54,6 +55,7 @@ def validate_masses(points):
 def main():
     args = get_args()
     verbose = args.verbose
+    csvoutput=args.csv
     FORMULACONSTANT = K if not args.gravity else G
     print(args.infile)
     charges = getCharges(args.infile)
@@ -106,6 +108,9 @@ def main():
         print(f' |Fnet| = {(p.magf):.2E} N')
         print(f'  Fnet  = {p.fx:.2E}i + {p.fy:.2E}j')
         print(f'  Angle = {p.netangle:.2F} rads ({p.netangle*180/math.pi:.2F} deg)\n')
-    csvout('zap_data_' + time.strftime('%Y%m%d%H%M%S')+'.csv', charges)
+
+    if csvoutput:
+        csvout('zap_data_' + time.strftime('%Y%m%d%H%M%S')+'.csv', charges)
+
 if __name__ == "__main__":
     main()

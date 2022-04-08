@@ -15,7 +15,9 @@ After cloning this repo, either add the file to $PATH, or navigate to the folder
 
 Where the input file contains the data for the system of charges
 
-### Data File format
+## I/O
+
+### Input Data File format
 
 * Any line beginning with # is ignored
 * Each line contains the data for one point charge
@@ -32,6 +34,15 @@ Where the input file contains the data for the system of charges
 * The file above contains two point charges
 * The 1st is located at (0m,2m) and has a charge of 5C
 * The 2nd is located at (0m,0m) and has a charge of 2 x 10^-6 C (2 micro Coulombs) 
+
+
+### Output
+
+This program can output to the terminal or to a csv file.
+
+The default is to output to just the terminal. If you add the -c/--csv flag,
+the data will be output in csv format to a file in the current directory named with
+zap\_data\_TIMESTAMP.csv, where TIMESTAMP is in the format %Y%m%d%H%M%S.
 
 ### Gravity Mode
 
