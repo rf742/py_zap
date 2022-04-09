@@ -67,15 +67,16 @@ there are any negative masses.
 - [x] Implement logic for 1D problems
 - [x] Fix logic for 2D problems
 - [ ] Add logic for 3D problems
-- [ ] Error handling for reading data files
+- [x] Error handling for reading data files
 
 
 ### Next Steps
 
-- [ ] Use argparse to implement command line args.
+- [x] Use argparse to implement command line args.
   - [x] -v flag
   - [x] -i flag {name of file to get input data from}
-  - [ ] -o flag {name of file to output data to}
+  - [x] -c flag {name of file to output csv data to}
+  - [x] -d flag {switch angles to degrees}
 - [ ] Add Test suite
 
 ### Long term
