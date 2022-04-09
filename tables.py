@@ -2,7 +2,7 @@
 
 from rich.console import Console
 from rich.table import Table
-
+import math
 
 def tosci(num):
     return f'{num:.2e}'
@@ -27,3 +27,11 @@ def uglyprint(points):
         print(f' |Fnet| = {(p.magf):.2E} N')
         print(f'  Fnet  = {p.fx:.2E}i + {p.fy:.2E}j')
         print(f'  Angle = {p.netangle:.2F} rads ({p.netangle*180/math.pi:.2F} deg)\n')
+
+
+def pTable(points):
+    try:
+        printTable(points)
+    except:
+        print("Error: Defaulting to plain text output")
+        uglyprint(points)

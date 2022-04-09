@@ -86,11 +86,6 @@ def main():
         filetools.csvout(csvfilename, charges)
         if verbose:
             print("writing csv data to: " + csvfilename)
-    try:
-        tables.printTable(charges)
-    except:
-        if verbose:
-            print("Tables not working, defaulting to ugly printing")
-        tables.uglyprint(charges)
+    tables.pTable(charges)
 if __name__ == "__main__":
     main()

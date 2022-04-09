@@ -1,5 +1,6 @@
 import csv
 import point
+import sys
 
 def csvout(filename, points):
     with open(filename,'w') as fobj:
@@ -17,5 +18,10 @@ def getCharges(filename):
                 temp.append(line.strip().split(','))
     points = []
     for element in temp:
-            points.append(point.pointCharge(float(element[0]),float(element[1]),float(element[2])))
+            try:
+                points.append(point.pointCharge(float(element[0]),float(element[1]),float(element[2])))
+            except ValueError as e:
+                print(f"Value Error: Check the format of {filename}.")
+                print(e)
+                sys.exit(1)
     return points
