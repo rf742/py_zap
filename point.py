@@ -15,3 +15,5 @@ class pointCharge():
     def resolve(self, degrees = False):
         out = [math.hypot(self.fx,self.fy), math.atan2(self.fy,self.fx) if not degrees else math.atan2(self.fy,self.fx)*180/math.pi]
         return out
+    def get_components(self,):
+        return[self.fx,self.fy]

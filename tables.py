@@ -4,8 +4,8 @@ from rich.console import Console
 from rich.table import Table
 import math
 
-def tosci(num):
-    return f'{num:.2e}'
+
+tosci = lambda num: f'{num:.2e}'
 
 
 def printTable(points, angleUnit):
