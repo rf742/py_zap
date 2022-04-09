@@ -20,6 +20,7 @@ def get_args():
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('-i', '--input-data', action='store', dest='infile', required='true', help='File containingdata on your point charges [x,y,q] ')
     parser.add_argument('-c', '--csv', action='store_true', help='output data to csv')
+    parser.add_argument('-d', '--degrees', action='store_true', help='display angle in degrees instead of radians.')
     return parser.parse_args()
 
 
@@ -35,6 +36,7 @@ def main():
     args = get_args()
     verbose = args.verbose
     csvoutput=args.csv
+    deg = args.degrees
     FORMULACONSTANT = K if not args.gravity else G
     charges = filetools.getCharges(args.infile)
     if args.gravity:
@@ -86,6 +88,6 @@ def main():
         filetools.csvout(csvfilename, charges)
         if verbose:
             print("writing csv data to: " + csvfilename)
-    tables.pTable(charges)
+    tables.pTable(charges,deg)
 if __name__ == "__main__":
     main()
