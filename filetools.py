@@ -24,4 +24,7 @@ def getCharges(filename):
                 print(f"Value Error: Check the format of {filename}.")
                 print(e)
                 sys.exit(1)
+            except IndexError as i:
+                print("Index Error, all lines need to have three numbers, separated by commas.")
+                sys.exit(1)
     return points

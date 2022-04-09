@@ -47,7 +47,11 @@ def main():
                 x_dist = abs(p2.x - p1.x)
                 y_dist = abs(p2.y - p1.y)
                 dist = math.sqrt((x_dist**2)+(y_dist**2))
-                totalforce = (FORMULACONSTANT*p1.q * p2.q)/(dist**2)
+                try:
+                    totalforce = (FORMULACONSTANT*p1.q * p2.q)/(dist**2)
+                except ZeroDivisionError:
+                    print("Multiple point charges cannot be located at same coordinate.")
+                    sys.exit(1)
                 angle = math.atan2(y_dist,x_dist)
                 fx = abs(totalforce*math.cos(angle))
                 fy = abs(totalforce*math.sin(angle))
