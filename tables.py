@@ -7,16 +7,13 @@ import math
 def tosci(num):
     return f'{num:.2e}'
 
+
 def printTable(points, angleUnit):
     console=Console()
     table = Table(show_header=True, header_style="bold magenta",)
-    table.add_column("x",justify='center')
-    table.add_column("y",justify='center')
-    table.add_column("q",justify='center')
-    table.add_column("Net Force",justify='center')
-    table.add_column("F_x",justify='center')
-    table.add_column("F_y",justify='center')
-    table.add_column("Angle",justify='center')
+    headers = ["x","y","q","Net Force", "F_x", "F_y", "Angle"]
+    for i in headers:
+        table.add_column(str(i), justify='center')
     for p in points:
         table.add_row(f'{p.x:.2}',f'{p.y:.2}',tosci(p.q),tosci(p.magf),tosci(p.fx),tosci(p.fy),f'{p.resolve(angleUnit)[1]:.2f}')
     console.print(table)
@@ -35,3 +32,4 @@ def pTable(points, deg):
     except:
         print("Error: Defaulting to plain text output")
         uglyprint(points)
+
