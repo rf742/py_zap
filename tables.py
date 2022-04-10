@@ -9,7 +9,7 @@ tosci = lambda num: f'{num:.2e}'
 
 
 def printTable(points, angleUnit):
-    console=Cfonsole()
+    console=Console()
     table = Table(show_header=True, header_style="bold magenta",)
     headers = ["x","y","q","Net Force", "F_x", "F_y", "Angle"]
     for i in headers:
