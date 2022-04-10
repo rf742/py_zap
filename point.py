@@ -3,9 +3,9 @@ import math
 
 class pointCharge():
     def __init__(self, x, y, q):
-        self.x = x
-        self.y = y
-        self.q = q
+        self.x = float(x)
+        self.y = float(y)
+        self.q = float(q)
         self.fx = 0
         self.fy = 0
         self.magf = 0
