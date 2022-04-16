@@ -3,7 +3,6 @@ import sys
 import math
 import argparse
 import time
-
 import tables
 import filetools
 
